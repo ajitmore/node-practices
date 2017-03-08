@@ -1,0 +1,17 @@
+{
+  "name": "es6-nodejs-babel",
+  "version": "0.0.1",
+  "description": "Learning ES6 using Babel and Node.JS",
+  "main": "index.js",
+  "scripts": {
+    "start": "budo index.js --live"
+  },
+  "author": "Ajit More",
+  "license": "MIT",
+  "devDependencies": {
+    "babelify": "^7.3.0"
+  },
+  "browsify": {
+    "transform": ["babelify"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "movies",
+  "version": "0.0.1",
+  "description": "This is movies related backend service, integarated with mongo db on local. It support add/modify/update/delete and also provide star ratiing of an application.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ajit More",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "express": "^4.15.0"
+  }
+}
