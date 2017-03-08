@@ -1,0 +1,10 @@
+{
+"transId": "W-Aug_17_18_21_26_030-PhDTObVT-app2",
+"status": "ERROR",
+"errorCode": "PROPERTY_RESTRICTED",
+"errorMsg": "Rooms are not available for this hotel at the requested dates. Please select alternate dates or hotel. Thank you",
+"ghaMember": false,
+"totalRoomAndAddOnRate": 0,
+"totalRoomAndAddOnTaxes": 0,
+"taxInclusive": false
+}
