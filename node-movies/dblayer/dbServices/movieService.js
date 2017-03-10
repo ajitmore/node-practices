@@ -7,6 +7,7 @@
 
     movieService.add = function(obj, next) {
         movieObj = new Movie(obj);
+        debugger;
         service.insert(movieObj, next);
     };
 
@@ -17,7 +18,18 @@
                 Name: name
             };
         }
+        debugger;
         service.get(Movie, params, next);
     };
+
+    movieService.update = function(id, obj, next) {
+      debugger;
+        service.update(id, Movie, obj, next);
+    };
+
+    movieService.remove = function(id, next) {
+      debugger;
+      service.remove(id, Movie, next);
+    }
 
 })(module.exports);

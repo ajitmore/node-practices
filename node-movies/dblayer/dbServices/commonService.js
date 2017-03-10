@@ -38,7 +38,29 @@
         });
     };
 
-    commonDBService.update = function(obj, next) {
-        //obj.update(obj)
+    commonDBService.update = function(id, obj, data, next) {
+        obj.findOneAndUpdate({
+            _id: id
+        }, data, function(err, doc) {
+            if (err) {
+                next(sendError(err));
+            } else {
+                next(null, sendSuccess(doc));
+            }
+        });
+    };
+
+    commonDBService.remove = function(id, obj, next) {
+        obj.remove({
+            _id: id
+        }, function(err, doc) {
+            if (err) {
+                next(sendError(err));
+            } else {
+                next(null, sendSuccess(JSON.stringify({
+                    id: id
+                })));
+            }
+        })
     }
 })(module.exports);
