@@ -5,7 +5,10 @@ var express =  require('express'),
     index = require('./index'),
     config = require('./config.json'),
     movies = require('./controllers/movies'),
-    dbLayer = require('./dblayer/initilize');
+    dbLayer = require('./dblayer/initilize'),
+    router = express.Router(),
+    authorization = require('./routerAuth/authorization'),
+    nonAuthorization = require('./routerAuth/nonAuthorization');
 
 global.basePath = __dirname + '/';
 global.dbBasePath = __dirname + '/dblayer/';
@@ -15,6 +18,11 @@ app.set('mongoose', mongoose)
 dbLayer.init(app);
 
 app.set('config', config);
+
+router.use('/api/', authorization.authorize);
+router.use('/content/', nonAuthorization.common);
+app.set('router',router)
+app.use(router);
 
 app.get('/', function(req, res) {
   res.send('The server is running on port 1333');
