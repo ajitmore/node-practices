@@ -1,4 +1,5 @@
 {
+  "emptyString": "",
   "mongoDB": {
     "url": "mongodb://localhost",
     "port": "27017",
