@@ -10,15 +10,10 @@
           movieService.get(req.params.name, function(err, response) {
               res.send(response);
           });
-        },
-
-        getTest = function(req, res) {
-          res.send('This is test response');
         };
 
         router
             .get('/content/movies/:name?', getMovies)
-            .get('/api/movi', getTest);
     };
 
 })(module.exports);
