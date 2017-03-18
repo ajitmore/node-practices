@@ -2,10 +2,15 @@ require.config({
     paths: {
         "jquery": "js/vendor/jquery/dist/jquery",
         "underscore": "js/vendor/underscore/underscore",
-        "backbone": "js/vendor/backbone/backbone"
+        "backbone": "js/vendor/backbone/backbone",
+
+        "movie": "/models/movies",
+        "movieCollection": "/collections/movieCollection",
     }
 });
 
 require(['../views/movieView'], function(appView) {
-    return new appView({el: $('#movieList')});
+    new appView({
+        el: $("#movieList")
+    });
 });

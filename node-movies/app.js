@@ -8,7 +8,8 @@ var express =  require('express'),
     dbLayer = require('./dblayer/initilize'),
     router = express.Router(),
     authorization = require('./routerAuth/authorization'),
-    nonAuthorization = require('./routerAuth/nonAuthorization');
+    nonAuthorization = require('./routerAuth/nonAuthorization'),
+    cors = require('cors');
 
 global.basePath = __dirname + '/';
 global.dbBasePath = __dirname + '/dblayer/';
@@ -18,6 +19,8 @@ app.set('mongoose', mongoose)
 dbLayer.init(app);
 
 app.set('config', config);
+
+app.use(cors());
 
 router.use('/api/', authorization.authorize);
 router.use('/content/', nonAuthorization.common);

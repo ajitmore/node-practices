@@ -1,23 +1,25 @@
-//define(['backbone', '../collections/movieCollection'], function(Backbone, movieCollection) {
-define(['backbone'], function(Backbone) {
+define(['backbone', 'movieCollection'], function(Backbone, MovieCollection) {
     'use strict';
     var movieView = Backbone.View.extend({
-        initilize: function() {
+        defaults: {},
+        initialize: function() {
             console.log('Loaded');
+            this.render();
+            this.getMovies();
         },
+        model: MovieCollection,
         tagname: "li",
 
         render: function() {
             this.$el.html('<li>Demo</li>');
             return this;
+        },
+
+        getMovies: function() {
+          var movies = new MovieCollection();
+          movies.fetch();
         }
     });
+
     return movieView;
 });
-
-// model: movieCollection,
-// tagname: "li",
-// render: function() {
-//     this.$el.html('<li>Demo</li>');
-//     return this;
-// }
