@@ -6,8 +6,27 @@
     <body>
         <h2>This is backbone demo application</h2>
         <div class="clear"></div>
-        <div id="movieList"></div>
+        <div id="movieList">
+            <ul class="movies"></ul>
+        </div>
         <div class="clear"></div>
+        <div class="singleMovie"></div>
     </body>
     <script data-main="content/main.js" src="content/js/vendor/requirejs/require.js"></script>
+    <script id="profileTemplate" type="text/template">
+      <li class="name">
+          <%= Name %>
+      </li>
+      <li class="director">
+          <%= Director %>
+      </li>
+      <li class="rating">
+          <%= Rating %>
+      </li>
+    </script>
+    <script type="text/template" id="movie">
+      <dd><%= Name %></dd>
+      <dd><%= Director %></dd>
+      <dd><%= Rating %></dd>
+    </script>
 </html>

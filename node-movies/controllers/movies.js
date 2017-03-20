@@ -5,8 +5,14 @@
         var config = app.get('config'),
             movieService = require(dbBasePath + 'dbServices/movieService');
 
-        app.get('/api/movies/:name?', function(req, res) {
-            movieService.get(req.params.name, function(err, response) {
+        app.get('/api/movies/', function(req, res) {
+            movieService.get(function(err, response) {
+                res.send(response);
+            });
+        });
+
+        app.get('/api/movies/:id', function(req, res) {
+            movieService.getById(req.params.id, function(err, response) {
                 res.send(response);
             });
         });

@@ -2,7 +2,7 @@ define(['backbone'], function(Backbone) {
     'use strict';
     var movie = Backbone.Model.extend({
         defaults: {
-            ID: "",
+            _id: "",
             Name: "",
             Rating: "",
             Type: "",
@@ -11,9 +11,10 @@ define(['backbone'], function(Backbone) {
             CreatedDate: "",
             ModifiedDate: ""
         },
-        idAttribute: "ID",
-        initialize: function() {
+        idAttribute: "_id",
+        initialize: function(name) {
             console.log('The model is initiated');
+
         },
         constructor: function(attributes, options) {
             console.log('The constructor had been called');
@@ -24,7 +25,10 @@ define(['backbone'], function(Backbone) {
                 return "Please enter Movie name";
             }
         },
-        urlRoot: 'http://localhost:1331/api/movies'
+        parse: function(response) {
+            return JSON.parse(response.data);
+        },
+        urlRoot: 'http://localhost:1333/api/movies'
     });
 
     return movie;

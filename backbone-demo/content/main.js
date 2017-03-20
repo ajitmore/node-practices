@@ -6,11 +6,15 @@ require.config({
 
         "movie": "/models/movies",
         "movieCollection": "/collections/movieCollection",
+        "movieView": "/views/movieView"
     }
 });
 
-require(['../views/movieView'], function(appView) {
-    new appView({
-        el: $("#movieList")
+require(['jquery', '../views/movieView'], function($, MovieView) {
+    var movieView = new MovieView({
+        //el: $('.movies') //For list
+        el: $('.singleMovie')
     });
+    //movieView.getMovies(); //For list
+    movieView.getMovie();
 });

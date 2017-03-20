@@ -6,6 +6,7 @@
             isError: false,
             data: res
         };
+        //return res;
     };
 
     var sendError = function(err) {
@@ -28,12 +29,22 @@
         });
     };
 
-    commonDBService.get = function(obj, param, next) {
-        obj.find(param, function(err, objs) {
+    commonDBService.get = function(obj, next) {
+        obj.find({}, function(err, objs) {
             if (err) {
                 next(sendError(err));
             } else {
                 next(null, sendSuccess(JSON.stringify(objs)));
+            }
+        });
+    };
+
+    commonDBService.getById = function(obj, id, next) {
+        obj.findById(id, function(err, obj) {
+            if (err) {
+                next(sendError(err));
+            } else {
+                next(null, sendSuccess(JSON.stringify(obj)));
             }
         });
     };

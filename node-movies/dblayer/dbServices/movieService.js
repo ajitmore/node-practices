@@ -10,14 +10,12 @@
         service.insert(movieObj, next);
     };
 
-    movieService.get = function(name, next) {
-        var params = {};
-        if (name) {
-            params = {
-                Name: name
-            };
-        }
-        service.get(Movie, params, next);
+    movieService.get = function(next) {
+        service.get(Movie, next);
+    };
+
+    movieService.getById = function(id, next) {
+        service.getById(Movie, id, next);
     };
 
     movieService.update = function(id, obj, next) {
@@ -25,7 +23,7 @@
     };
 
     movieService.remove = function(id, next) {
-      service.remove(id, Movie, next);
+        service.remove(id, Movie, next);
     }
 
 })(module.exports);
