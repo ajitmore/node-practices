@@ -6,29 +6,26 @@ define(['backbone', 'underscore', 'movieCollection', 'movie'], function(Backbone
         initialize: function() {
             console.log('Loaded');
         },
-        render: function() {
-            _.each(this.model.models, function(movie) {
-                var profileTemplate = this.template(movie.toJSON());
-                $(this.$el).append(profileTemplate);
-            }, this);
 
-            return this;
+        el: $('.singleMovie'),
+        events: {
+            "click #btnEdit": "renderMovieUpdate",
+            "click #btnUpdate": "updateMovie",
+            "click #btnCancel": "renderMovie"
         },
 
         renderMovie: function() {
             var temp = _.template($('#movie').html());
+            $(this.$el).html('');
             $(this.$el).append(temp(this.model.toJSON()));
+            return this;
         },
 
-        getMovies: function() {
-            var self = this;
-            var movies = new MovieCollection();
-            self.model = movies;
-            movies.fetch({
-                success: function() {
-                    self.render();
-                }
-            });
+        renderMovieUpdate: function() {
+            var temp = _.template($('#movieEdit').html());
+            $(this.$el).html('');
+            $(this.$el).append(temp(this.model.toJSON()));
+            return this;
         },
 
         getMovie: function() {
@@ -39,6 +36,13 @@ define(['backbone', 'underscore', 'movieCollection', 'movie'], function(Backbone
             self.model = movie;
             movie.fetch().done(function() {
                 self.renderMovie();
+            });
+        },
+
+        updateMovie: function() {
+            var self = this;
+            this.model.save(JSON.stringify(this.model)).done(function() {
+                self.getMovie();
             });
         }
     });

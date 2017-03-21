@@ -14,12 +14,12 @@ define(['backbone'], function(Backbone) {
         idAttribute: "_id",
         initialize: function(name) {
             console.log('The model is initiated');
-
         },
         constructor: function(attributes, options) {
             console.log('The constructor had been called');
             Backbone.Model.apply(this, arguments);
         },
+
         validate: function(attr) {
             if (attr.Name.length < 1) {
                 return "Please enter Movie name";

@@ -30,7 +30,7 @@
         });
 
         //58c77f622b5eb630639345ea
-        app.put('/api/movie/:id', function(req, res) {
+        app.put('/api/movies/:id', function(req, res) {
             movieService.update(req.params.id, req.body, function(err, response) {
                 if (err) {
                     res.send(err);
@@ -41,7 +41,7 @@
         });
 
         //58c77f622b5eb630639345ea
-        app.delete('/api/movie/:id', function(req, res) {
+        app.delete('/api/movies/:id', function(req, res) {
             movieService.remove(req.params.id, function(err, response) {
                 if (err) {
                     res.send(err);

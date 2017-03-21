@@ -14,19 +14,48 @@
     </body>
     <script data-main="content/main.js" src="content/js/vendor/requirejs/require.js"></script>
     <script id="profileTemplate" type="text/template">
-      <li class="name">
-          <%= Name %>
-      </li>
-      <li class="director">
-          <%= Director %>
-      </li>
-      <li class="rating">
-          <%= Rating %>
-      </li>
-    </script>
-    <script type="text/template" id="movie">
-      <dd><%= Name %></dd>
-      <dd><%= Director %></dd>
-      <dd><%= Rating %></dd>
-    </script>
+    <li style="list-style:none;border:1px solid;width:250px;" class="name">
+        <dt>Name</dt>
+        <dd><%= Name %></dd>
+        <dt>Director</dt>
+        <dd><%= Director %></dd>
+        <dt>Name</dt>
+        <dd><%= Rating %></dd>
+        <dt><button type="button" id="btnEdit1">Edit</button></dt>
+    </li>
+</script>
+<script type="text/template" id="movie">
+    <dd><span>Name: </span><%= Name %></dd>
+    <dd><span>Director: </span><%= Director %></dd>
+    <dd><span>Rating: </span><%= Rating %></dd>
+    <dd>
+        <button id="btnEdit">Edit</button>
+    </dd>
+</script>
+<script type="text/template" id="movieEdit">
+    <ul style="list-style:none;line-height:25px;">
+        <li>
+            <span>Name</span>
+        </br><input type="text" id="Name" value="<%= Name %>"/></li>
+    <li>
+        <span>Director</span>
+    </br><input type="text" id="Director" value="<%= Director %>"/></li>
+<li>
+    <span>Rating</span>
+</br><input type="text" id="Rating" value="<%= Rating %>"/></li>
+<li>
+<button id="btnUpdate">Update</button>
+<button id="btnCancel">Cancel</button>
+</li>
+</ul>
+</script>
+<style type="text/css">
+ul li input[type=text] {
+width: 150px;
+}
+button {
+margin-right: 10px;
+}
+
+</style>
 </html>

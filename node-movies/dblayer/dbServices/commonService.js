@@ -55,7 +55,7 @@
             if (err) {
                 next(sendError(err));
             } else {
-                next(null, sendSuccess(doc));
+                next(null, sendSuccess(JSON.stringify(doc)));
             }
         });
     };
