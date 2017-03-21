@@ -37,11 +37,9 @@ define(['backbone', 'underscore', 'movieCollection', 'movie'], function(Backbone
                 _id: "58c7827ad23c8b33dbcaca09"
             });
             self.model = movie;
-            movie.fetch({
-                success: function() {
-                    self.renderMovie();
-                }
-            })
+            movie.fetch().done(function() {
+                self.renderMovie();
+            });
         }
     });
 

@@ -6,7 +6,6 @@
             isError: false,
             data: res
         };
-        //return res;
     };
 
     var sendError = function(err) {
@@ -15,7 +14,7 @@
             isError: true,
             err: err
         };
-    }
+    };
 
     commonDBService.insert = function(obj, next) {
         obj.save(function(err) {
