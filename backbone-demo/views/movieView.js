@@ -2,20 +2,24 @@ define(['backbone', 'underscore', 'movieCollection', 'movie'], function(Backbone
     'use strict';
     var movieView = Backbone.View.extend({
         defaults: {},
-        template: _.template($('#profileTemplate').html()),
+        template: _.template($('.profileTemplate').html()),
         initialize: function() {
             console.log('Loaded');
         },
 
-        el: $('.singleMovie'),
         events: {
+            "change input[type=text]": "setModel",
             "click #btnEdit": "renderMovieUpdate",
             "click #btnUpdate": "updateMovie",
             "click #btnCancel": "renderMovie"
         },
 
+        setModel: function(ref) {
+            this.model.set(ref.target.id, ref.target.value);
+        },
+
         renderMovie: function() {
-            var temp = _.template($('#movie').html());
+            var temp = _.template($('.profileTemplate').html());
             $(this.$el).html('');
             $(this.$el).append(temp(this.model.toJSON()));
             return this;

@@ -12,10 +12,10 @@ require.config({
 });
 
 require(['jquery', 'movieView', 'moviesView'], function($, MovieView, MoviesView) {
-    var movieView = new MovieView({
-        //el: $('.movies') //For list
-        el: $('.singleMovie')
-    });
+    // var movieView = new MovieView({
+    //     //el: $('.movies') //For list
+    //     el: $('.singleMovie')
+    // });
     new MoviesView();
-    movieView.getMovie();
+    //movieView.getMovie();
 });

@@ -1,18 +1,32 @@
-define(['backbone', 'underscore', 'movieCollection'], function(Backbone, _, MovieCollection) {
+define(['backbone', 'underscore', 'movieCollection', 'movieView'], function(Backbone, _, MovieCollection, MovieView) {
     'use strict';
     var movieView = Backbone.View.extend({
         defaults: {},
-        template: _.template($('#profileTemplate').html()),
         initialize: function() {
             console.log('Loaded');
             this.getMovies();
         },
-
         el: $('.movies'),
+        events: {
+            "click .btnEdit": "renderUpdate"
+        },
+
+        renderUpdate: function(ref) {
+            debugger;
+            var movie = new MovieView({
+                el: $(ref.target).parents('.movie'),
+                model: this.model
+            });
+            movie.renderMovieUpdate();
+        },
+
         render: function() {
             _.each(this.model.models, function(movie) {
-                var profileTemplate = this.template(movie.toJSON());
-                $(this.$el).append(profileTemplate);
+                var movie = new MovieView({
+                    model: movie,
+                    el: $('.movies')
+                });
+                $(this.$el).append(movie.renderMovie());
             }, this);
 
             return this;
