@@ -7,15 +7,18 @@ require.config({
         "movie": "/models/movies",
         "movieCollection": "/collections/movieCollection",
         "movieView": "/views/movieView",
-        "moviesView": "/views/moviesView"
+        "moviesView": "/views/moviesView",
+        "movieController": "/controllers/movieController"
     }
 });
 
-require(['jquery', 'movieView', 'moviesView'], function($, MovieView, MoviesView) {
+//require(['jquery', 'movieView', 'moviesView'], function($, MovieView, MoviesView) {
+require(['movieController'], function(MovieController) {
+    (new MovieController()).getMovies();
     // var movieView = new MovieView({
     //     //el: $('.movies') //For list
     //     el: $('.singleMovie')
     // });
-    new MoviesView();
+    //new MoviesView();
     //movieView.getMovie();
 });

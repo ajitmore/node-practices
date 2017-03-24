@@ -13,7 +13,7 @@
         <div class="singleMovie"></div>
     </body>
     <script data-main="content/main.js" src="content/js/vendor/requirejs/require.js"></script>
-    <script class="profileTemplate" type="text/template">
+    <script class="movieTemplate" type="text/template">
       <li style="list-style:none;border:1px solid;width:250px;" class="movie">
           <dt>Name</dt>
           <dd><%= Name %></dd>
@@ -22,7 +22,7 @@
           <dt>Rating</dt>
           <dd><%= Rating %></dd>
           <dt>
-              <button type="button" class="btnEdit">Edit</button>
+              <button type="button" class="btnEdit" data-id="<%= _id %>">Edit</button>
           </dt>
       </li>
     </script>

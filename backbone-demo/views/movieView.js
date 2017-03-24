@@ -1,28 +1,43 @@
-define(['backbone', 'underscore', 'movieCollection', 'movie'], function(Backbone, _, MovieCollection, Movie) {
+define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone, _, Movie, MovieCollection) {
     'use strict';
     var movieView = Backbone.View.extend({
         defaults: {},
-        template: _.template($('.profileTemplate').html()),
+        template: _.template($('#movieEdit').html()),
         initialize: function() {
             console.log('Loaded');
         },
+        el: $('.movies'),
 
         events: {
             "change input[type=text]": "setModel",
-            "click #btnEdit": "renderMovieUpdate",
+            "click .btnEdit": "renderUpdate",
             "click #btnUpdate": "updateMovie",
-            "click #btnCancel": "renderMovie"
+            "click #btnCancel": "renderMovies"
         },
 
         setModel: function(ref) {
             this.model.set(ref.target.id, ref.target.value);
         },
 
-        renderMovie: function() {
-            var temp = _.template($('.profileTemplate').html());
+        renderUpdate: function(e) {
+            e.stopPropagation();
+            this.getMovie($(e.target).attr('data-id'));
+        },
+
+        render: function() {
             $(this.$el).html('');
-            $(this.$el).append(temp(this.model.toJSON()));
+            this.collection = (this.collection) ? this.collection : this.model;
+            _.each(this.collection.models, function(movie) {
+                var temp = _.template($('.movieTemplate').html());
+                $(this.$el).append(temp(movie.toJSON()));
+            }, this);
+
             return this;
+        },
+
+        renderMovies: function(e) {
+            e.stopPropagation();
+            return this.render();
         },
 
         renderMovieUpdate: function() {
@@ -32,21 +47,41 @@ define(['backbone', 'underscore', 'movieCollection', 'movie'], function(Backbone
             return this;
         },
 
-        getMovie: function() {
+        getMovie: function(id) {
             var self = this;
             var movie = new Movie({
-                _id: "58c7827ad23c8b33dbcaca09"
+                _id: id
             });
             self.model = movie;
             movie.fetch().done(function() {
-                self.renderMovie();
+                self.renderMovieUpdate();
             });
         },
 
-        updateMovie: function() {
+        getMovies: function() {
+            var self = this;
+            var movies = new MovieCollection();
+            self.model = movies;
+            movies.fetch({
+                success: function() {
+                    self.render();
+                }
+            });
+        },
+
+        setMovies: function(obj) {
+            _.extend(_.findWhere(this.collection, {
+                _id: obj.get('_id')
+            }), obj);
+            debugger;
+        },
+
+        updateMovie: function(e) {
+            e.stopPropagation();
             var self = this;
             this.model.save(JSON.stringify(this.model)).done(function() {
-                self.getMovie();
+                self.getMovies();
+                //self.setMovies();
             });
         }
     });

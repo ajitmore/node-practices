@@ -1,32 +1,36 @@
 define(['backbone', 'underscore', 'movieCollection', 'movieView'], function(Backbone, _, MovieCollection, MovieView) {
     'use strict';
-    var movieView = Backbone.View.extend({
+    var moviesView = Backbone.View.extend({
         defaults: {},
         initialize: function() {
             console.log('Loaded');
             this.getMovies();
         },
         el: $('.movies'),
+
         events: {
-            "click .btnEdit": "renderUpdate"
+            //"click .btnEdit": "renderUpdate"
         },
 
-        renderUpdate: function(ref) {
-            debugger;
+        renderUpdate: function(e) {
+            e.stopPropagation();
             var movie = new MovieView({
-                el: $(ref.target).parents('.movie'),
-                model: this.model
+                el: $('.singleMovie'),
+                id: $(e.target).attr('data-id'),
+                collection: this.model
             });
-            movie.renderMovieUpdate();
+            movie.getMovie();
         },
 
         render: function() {
             _.each(this.model.models, function(movie) {
-                var movie = new MovieView({
-                    model: movie,
-                    el: $('.movies')
-                });
-                $(this.$el).append(movie.renderMovie());
+                // var movie = new MovieView({
+                //     model: movie,
+                //     el: $('.movies')
+                // });
+                // $(this.$el).append(movie.renderMovie());
+                var temp = _.template($('.movieTemplate').html());
+                $(this.$el).append(temp(movie.toJSON()));
             }, this);
 
             return this;
@@ -44,5 +48,5 @@ define(['backbone', 'underscore', 'movieCollection', 'movieView'], function(Back
         }
     });
 
-    return movieView;
+    return moviesView;
 });
