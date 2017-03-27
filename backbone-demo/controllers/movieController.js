@@ -4,6 +4,10 @@ define(['jquery', 'backbone', 'underscore', 'movieView', 'moviesView'], function
         this.getMovies = function() {
             (new MovieView()).getMovies();
         };
+
+        this.addMovie = function() {
+            (new MovieView()).renderAdd();
+        }
     };
     return movieController;
 });

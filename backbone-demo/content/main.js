@@ -15,10 +15,8 @@ require.config({
 //require(['jquery', 'movieView', 'moviesView'], function($, MovieView, MoviesView) {
 require(['movieController'], function(MovieController) {
     (new MovieController()).getMovies();
-    // var movieView = new MovieView({
-    //     //el: $('.movies') //For list
-    //     el: $('.singleMovie')
-    // });
-    //new MoviesView();
-    //movieView.getMovie();
+    $('#btnAdd').click(function(e) {
+        //e.stopPropagation();
+        (new MovieController()).addMovie();
+    });
 });

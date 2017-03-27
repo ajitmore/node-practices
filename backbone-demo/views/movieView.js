@@ -12,11 +12,16 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
             "change input[type=text]": "setModel",
             "click .btnEdit": "renderUpdate",
             "click #btnUpdate": "updateMovie",
-            "click #btnCancel": "renderMovies"
+            "click #btnCancel": "renderMovies",
+            "click #btnSave": "addMovie",
+            "click #btnDelete": "deleteMovie",
         },
 
         setModel: function(ref) {
-            this.model.set(ref.target.id, ref.target.value);
+            ref.stopImmediatePropagation();
+            if (this.model) {
+                this.model.set(ref.target.id, ref.target.value);
+            }
         },
 
         renderUpdate: function(e) {
@@ -24,9 +29,25 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
             this.getMovie($(e.target).attr('data-id'));
         },
 
+        renderAdd: function() {
+            $(this.$el).html('');
+            var temp = _.template($('#movieAdd').html());
+            $(this.$el).append(temp());
+            //this.showAddButtons();
+            return this;
+        },
+
+        showAddButtons: function() {
+            this.$el.find('#btnUpdate').hide();
+            this.$el.find('#btnDelete').hide();
+        },
+
+        showUpdateButtons: function() {
+            this.$el.find('#btnSave').hide();
+        },
+
         render: function() {
             $(this.$el).html('');
-            this.collection = (this.collection) ? this.collection : this.model;
             _.each(this.collection.models, function(movie) {
                 var temp = _.template($('.movieTemplate').html());
                 $(this.$el).append(temp(movie.toJSON()));
@@ -36,7 +57,7 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
         },
 
         renderMovies: function(e) {
-            e.stopPropagation();
+            e.stopImmediatePropagation();
             return this.render();
         },
 
@@ -44,6 +65,7 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
             var temp = _.template($('#movieEdit').html());
             $(this.$el).html('');
             $(this.$el).append(temp(this.model.toJSON()));
+            //this.showUpdateButtons();
             return this;
         },
 
@@ -61,7 +83,7 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
         getMovies: function() {
             var self = this;
             var movies = new MovieCollection();
-            self.model = movies;
+            self.collection = self.model = movies;
             movies.fetch({
                 success: function() {
                     self.render();
@@ -69,11 +91,33 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
             });
         },
 
+        //This function to update collection object locally instead of making another server call
         setMovies: function(obj) {
             _.extend(_.findWhere(this.collection, {
                 _id: obj.get('_id')
             }), obj);
-            debugger;
+        },
+
+        addMovie: function(e) {
+            e.stopImmediatePropagation();
+            var self = this;
+            var name = this.$el.find("#Name").val(),
+                rating = this.$el.find("#Rating").val(),
+                director = this.$el.find("#Director").val(),
+                type = this.$el.find("#Type").val(),
+                releasedDate = this.$el.find("#ReleasedDate").val();
+            var movie = this.collection.create({
+                Name: name,
+                Rating: rating,
+                Director: director,
+                Type: type,
+                ReleasedDate: releasedDate
+            }, {
+                wait: true,
+                success: function(resp) {
+                    self.getMovies();
+                }
+            });
         },
 
         updateMovie: function(e) {
@@ -81,8 +125,16 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
             var self = this;
             this.model.save(JSON.stringify(this.model)).done(function() {
                 self.getMovies();
-                //self.setMovies();
+                //self.setMovies(self.model); // To update collection locally
             });
+        },
+
+        deleteMovie: function(e) {
+            e.stopPropagation();
+            var self = this;
+            this.model.destroy().done(function() {
+                self.getMovies();
+            })
         }
     });
 
