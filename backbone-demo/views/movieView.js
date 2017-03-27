@@ -65,7 +65,6 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
             var temp = _.template($('#movieEdit').html());
             $(this.$el).html('');
             $(this.$el).append(temp(this.model.toJSON()));
-            //this.showUpdateButtons();
             return this;
         },
 
@@ -106,18 +105,25 @@ define(['backbone', 'underscore', 'movie', 'movieCollection'], function(Backbone
                 director = this.$el.find("#Director").val(),
                 type = this.$el.find("#Type").val(),
                 releasedDate = this.$el.find("#ReleasedDate").val();
-            var movie = this.collection.create({
-                Name: name,
-                Rating: rating,
-                Director: director,
-                Type: type,
-                ReleasedDate: releasedDate
-            }, {
-                wait: true,
-                success: function(resp) {
-                    self.getMovies();
-                }
-            });
+            var obj = new Movie;
+            if (!obj.set('Name', name, {
+                    validate: true // Need to provide
+                })) {
+                alert(obj.validationError);
+                return;
+            }
+            obj.set('Rating', rating);
+            obj.set('Director', director);
+            obj.set('Type', type);
+            obj.set('ReleasedDate', releasedDate);
+            obj.unset('_id');
+            this.collection.create(
+                obj.toJSON(), {
+                    wait: true,
+                    success: function(resp) {
+                        self.getMovies();
+                    }
+                });
         },
 
         updateMovie: function(e) {
