@@ -13,5 +13,11 @@
     "cors": "^2.8.1",
     "express": "^4.15.0",
     "mongoose": "^4.8.6"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-express": "^1.4.1",
+    "grunt-parallel": "^0.5.1"
   }
 }
