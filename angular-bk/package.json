@@ -1,0 +1,16 @@
+{
+  "name": "angularjs demo",
+  "version": "0.0.1",
+  "description": "This is angular demo project",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ajit More",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-express": "^1.4.1"
+  }
+}
