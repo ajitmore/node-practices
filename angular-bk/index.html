@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html ng-app>
+<html xmlns:ng="http://angularjs.org">
     <head>
         <meta charset="utf-8">
         <title>This is Angular Demo</title>
+        <script src="./content/js/vendor/angular/angular.min.js" ng:autobind></script>
+        <script src="./content/js/vendor/angular-resource/angular-resource.min.js"></script>
+        <script src="./modules.js"></script>
+        <script src="./services/movieService.js"></script>
+        <script src="./controller/movieController.js"></script>
+
     </head>
-    <body>
+    <body ng-app='movieApp'>
         <h1>This is Angular Demo</h1>
+        <div class="clear"></div>
+        <div id="movieList">
+            <div class="movieAdd">
+                <button id="btnAdd">Add</button>
+            </div>
+            <ul class="movies" ng-controller="movieController" ng-init="getMovies()">
+                <li style="list-style:none;border:1px solid;width:250px;" class="movie" ng-repeat="movie in movies">
+                    <dt>Name</dt>
+                    <dd><%= movie.Name %></dd>
+                    <dt>Director</dt>
+                    <dd><%= movie.Director %></dd>
+                    <dt>Rating</dt>
+                    <dd><%= movie.Rating %></dd>
+                    <dt>
+                        <button type="button" class="btnEdit" data-id="<%= _id %>">Edit</button>
+                    </dt>
+                </li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <!-- <script src="js/services.js"></script>
+        <script src="js/controllers.js"></script> -->
     </body>
 </html>
