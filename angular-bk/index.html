@@ -13,26 +13,15 @@
     <body ng-app='movieApp'>
         <h1>This is Angular Demo</h1>
         <div class="clear"></div>
-        <div id="movieList">
+        <div id="movieList" ng-controller="movieController">
             <div class="movieAdd">
-                <button id="btnAdd">Add</button>
+                <button id="btnAdd" ng-hide="isNew" ng-click="addMovie()">Add</button>
             </div>
-            <ul class="movies" ng-controller="movieController" ng-init="getMovies()">
-                <li style="list-style:none;border:1px solid;width:250px;" class="movie" ng-repeat="movie in movies">
-                    <dt>Name</dt>
-                    <dd><%= movie.Name %></dd>
-                    <dt>Director</dt>
-                    <dd><%= movie.Director %></dd>
-                    <dt>Rating</dt>
-                    <dd><%= movie.Rating %></dd>
-                    <dt>
-                        <button type="button" class="btnEdit" data-id="<%= _id %>">Edit</button>
-                    </dt>
-                </li>
-            </ul>
+            <div class="">
+              <ng-include ng-if="!isMoviePane" src="'./views/movie-list.html'"></ng-include>
+              <ng-include ng-if="isMoviePane" src="'./views/movie-details.html'"></ng-include>
+            </div>
         </div>
         <div class="clear"></div>
-        <!-- <script src="js/services.js"></script>
-        <script src="js/controllers.js"></script> -->
     </body>
 </html>

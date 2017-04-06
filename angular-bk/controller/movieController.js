@@ -1,30 +1,49 @@
 angular.module('movieApp').controller('movieController', ['$scope', 'movieService', function($scope, movieService) {
 
     $scope.getMovies = function() {
-        $scope.movies = movieService.query();
+        movieService.query(function(data) {
+            $scope.movies = JSON.parse(data.data);
+        });
     };
-    // 
-    // $scope.movies = function() {
-    //     return
-    // }
 
-    $scope.movie = function(id) {
-        return movieService.get({
-            _id: id
+    $scope.getMovie = function(_id) {
+        movieService.get({
+            id: _id
+        }, function(data) {
+            $scope.movie = JSON.parse(data.data);
+            $scope.movie.ReleasedDate = new Date($scope.movie.ReleasedDate);
+            $scope.isMoviePane = true;
         });
     };
 
     $scope.addMovie = function() {
-        return movieService.$save();
+        $scope.movie = new Object();
+        $scope.isNew = $scope.isMoviePane = true;
+    };
+
+    $scope.saveMovie = function() {
+        movieService.save($scope.movie, function() {
+            scope.isMoviePane = false;
+        });
     };
 
     $scope.updateMovie = function() {
-        return movieService.$save({
-            _id: $scope.movie._id
+        movieService.update({
+            id: $scope.movie._id
+        }, $scope.movie, function(data) {
+            $scope.isMoviePane = false;
         });
     };
 
     $scope.deleteMovie = function() {
-        return movieService.$update();
+        movieService.delete({
+            id: $scope.movie._id
+        }, function() {
+            $scope.isMoviePane = false;
+        });
     };
+
+    $scope.cancel = function() {
+        $scope.isMoviePane = false;
+    }
 }]);

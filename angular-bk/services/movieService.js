@@ -3,9 +3,19 @@ angular.module('movieApp').service('movieService', ['$resource', function($resou
         id: '@_id'
     }, {
         query: {
-            transformResponse: function(data, header) {
-                debugger;
+            transformResponse: function(data, header, status) {
+                return JSON.parse(data);
             }
+        },
+
+        get: {
+            transformResponse: function(data, header, status) {
+                return JSON.parse(data);
+            }
+        },
+        
+        update: {
+            method: 'PUT'
         }
     });
 }])

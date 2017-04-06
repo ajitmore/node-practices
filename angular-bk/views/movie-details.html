@@ -1,0 +1,31 @@
+<ul style="list-style:none;line-height:25px;">
+    <li>
+        <span>Name</span>
+        </br>
+        <input type="text" id="Name" ng-model="movie.Name"/>
+    </li>
+    <li>
+        <span>Director</span>
+        </br>
+        <input type="text" id="Director" ng-model="movie.Director"/>
+    </li>
+    <li>
+      <span>Rating</span>
+      </br>
+      <input type="text" id="Rating" ng-model="movie.Rating"/>
+    </li>
+    <li ng-show="isNew">
+      <span>Released Date</span>
+      </br><input type="date" id="ReleasedDate" ng-model="movie.ReleasedDate"/>
+    </li>
+    <li ng-show="isNew">
+      <span>Type</span>
+      </br><input type="text" id="Type" ng-model="movie.Type"/>
+    </li>
+    <li>
+        <button id="btnSave" ng-click="saveMovie()" ng-show="isNew">Save</button>
+        <button id="btnUpdate" ng-click="updateMovie()" ng-show="!isNew">Update</button>
+        <button id="btnDelete" ng-click="deleteMovie()" ng-show="!isNew">Delete</button>
+        <button id="btnCancel" ng-click="cancel()">Cancel</button>
+    </li>
+</ul>

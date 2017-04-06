@@ -1,11 +1,13 @@
-<li style="list-style:none;border:1px solid;width:250px;" class="movie" ng-repeat="">
-    <dt>Name</dt>
-    <dd><%= Name %></dd>
-    <dt>Director</dt>
-    <dd><%= Director %></dd>
-    <dt>Rating</dt>
-    <dd><%= Rating %></dd>
-    <dt>
-        <button type="button" class="btnEdit" data-id="<%= _id %>">Edit</button>
-    </dt>
-</li>
+<ul ng-init="getMovies()">
+    <li style="list-style:none;border:1px solid;width:250px;" class="movie" ng-repeat="movie in movies">
+        <dt>Name</dt>
+        <dd>{{movie.Name}}</dd>
+        <dt>Director</dt>
+        <dd>{{movie.Director }}</dd>
+        <dt>Rating</dt>
+        <dd>{{movie.Rating}}</dd>
+        <dt>
+            <button type="button" class="btnEdit" ng-click="getMovie(movie._id)" data-id="{{movie._id}}">Edit</button>
+        </dt>
+    </li>
+</ul>
