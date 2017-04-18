@@ -3,7 +3,7 @@ var express =  require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     index = require('./index'),
-    config = require('./config.json'),
+    config = require('./config.js'),
     movies = require('./controllers/movies'),
     dbLayer = require('./dblayer/initilize'),
     router = express.Router(),
@@ -14,7 +14,7 @@ var express =  require('express'),
 global.basePath = __dirname + '/';
 global.dbBasePath = __dirname + '/dblayer/';
 
-mongoose.connect(config.mongoDB.url + ':' + config.mongoDB.port + '/' + config.mongoDB.dbName);
+mongoose.connect(config.mongoDB.protocol + config.mongoDB.url + ':' + config.mongoDB.port + '/' + config.mongoDB.dbName);
 app.set('mongoose', mongoose)
 dbLayer.init(app);
 
