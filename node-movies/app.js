@@ -1,4 +1,4 @@
-var express =  require('express'),
+var express = require('express'),
     app = module.exports = express(),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
@@ -9,12 +9,18 @@ var express =  require('express'),
     router = express.Router(),
     authorization = require('./routerAuth/authorization'),
     nonAuthorization = require('./routerAuth/nonAuthorization'),
-    cors = require('cors');
+    cors = require('cors'),
+    mongoDBUrl = config.mongoDB.protocol + config.mongoDB.url + ':' + config.mongoDB.port + '/' + config.mongoDB.dbName;
 
 global.basePath = __dirname + '/';
 global.dbBasePath = __dirname + '/dblayer/';
 
-mongoose.connect(config.mongoDB.protocol + config.mongoDB.url + ':' + config.mongoDB.port + '/' + config.mongoDB.dbName);
+mongoose.connect(mongoDBUrl, function(error) {
+    if (error) {
+        console.error(error);
+        process.exit();
+    }
+});
 app.set('mongoose', mongoose)
 dbLayer.init(app);
 
@@ -24,18 +30,20 @@ app.use(cors());
 
 router.use('/api/', authorization.authorize);
 router.use('/content/', nonAuthorization.common);
-app.set('router',router)
+app.set('router', router)
 app.use(router);
 
 app.get('/', function(req, res) {
-  res.send('The server is running on port 1333');
+    res.send('The server is running on port 1333');
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 index.init(app);
 
 app.listen('1333', function() {
-  console.log('The server is running on port 1333');
+    console.log('The server is running on port 1333');
 });
