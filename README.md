@@ -4,7 +4,7 @@ This is practice repository in which back-end server is developed using Node.JS 
 These set of instructions will get you clone repository on your local system, run code and perform CRUD using REST APIs.
 ## Prerequisites
 * Install Node.JS using this [link](https://nodejs.org/en/download/package-manager) and select appropriate OS type as per your wish.
-* MongoDB running on local instance or refer remote MongoDB server and setup url and port in node-practices/node-movies/config.json
+* MongoDB running on local instance or refer remote MongoDB server and setup url and port in node-practices/node-movies/config.js
 ```
 "mongoDB": {
     "url": "mongodb://localhost",
