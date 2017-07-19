@@ -10,18 +10,31 @@ var express = require('express'),
     authorization = require('./routerAuth/authorization'),
     nonAuthorization = require('./routerAuth/nonAuthorization'),
     cors = require('cors'),
-    mongoDBUrl = config.mongoDB.protocol + config.mongoDB.url + ':' + config.mongoDB.port + '/' + config.mongoDB.dbName;
+    mongoDBUrl = config.mongoDB.protocol + config.mongoDB.url + ':' + config.mongoDB.port + '/' + config.mongoDB.dbName,
+    options =  { promiseLibrary: require('q'), useMongoClient: true };
 
 global.basePath = __dirname + '/';
 global.dbBasePath = __dirname + '/dblayer/';
 
-mongoose.connect(mongoDBUrl, function(error) {
-    if (error) {
-        console.error(error);
-        process.exit();
-    }
+// mongoose.connect(mongoDBUrl, function(error) {
+//     if (error) {
+//         console.error(error);
+//         process.exit();
+//     }
+// });
+// app.set('mongoose', mongoose)
+
+//===================== To new  version of mongoose >= 4.11.0 ====================//
+mongoose.Promise = require('q').Promise;
+
+var connectionPromise = mongoose.connect(mongoDBUrl, options);
+connectionPromise.then(function(db) {
+    console.log('The db server is connected!!!');
+}).fail(function(err) {
+    console.log(err);
+    process.exit();
 });
-app.set('mongoose', mongoose)
+//================================================================================//
 dbLayer.init(app);
 
 app.set('config', config);
