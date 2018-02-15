@@ -7,6 +7,7 @@ import * as compression from 'compression';
 import * as cors from 'cors';
 import PostRouter from './router/PostRouter';
 import UserRouter from './router/UserRouter';
+import { Router, Request, Response, NextFunction } from "express";
 
 // Add routes
 
@@ -35,11 +36,22 @@ class Server {
         this.app.use(cors());
     }
 
+    private middleware(req: Request, res: Response, next: NextFunction): void {
+        console.log('middleware');        
+        if(req.headers.id === 'abc') {
+            next();
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
     public routes(): void {
         let router: express.Router;
         router = express.Router();
 
-        this.app.use('/', router);
+        //router.use(this.middleware);
+
+        this.app.use('/', this.middleware);
         this.app.use('/api/v1/posts', PostRouter)
         this.app.use('/api/v1/users', UserRouter)
     }

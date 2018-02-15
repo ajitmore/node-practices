@@ -27,10 +27,20 @@ var Server = /** @class */ (function () {
         this.app.use(logger('dev'));
         this.app.use(cors());
     };
+    Server.prototype.middleware = function (req, res, next) {
+        console.log('middleware');
+        if (req.headers.id === 'abc') {
+            next();
+        }
+        else {
+            res.sendStatus(401);
+        }
+    };
     Server.prototype.routes = function () {
         var router;
         router = express.Router();
-        this.app.use('/', router);
+        //router.use(this.middleware);
+        this.app.use('/', this.middleware);
         this.app.use('/api/v1/posts', PostRouter_1.default);
         this.app.use('/api/v1/users', UserRouter_1.default);
     };
