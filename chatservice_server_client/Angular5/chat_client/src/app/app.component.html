@@ -1,0 +1,15 @@
+<input name="username" [(ngModel)]="username" />
+<button (click)="chatMessage()">Chat</button>
+
+<div *ngIf="show">
+  <h5> {{ username }}</h5>
+
+  <div *ngFor="let message of messages">
+    {{message}}
+  </div>
+  
+  <span>{{notification}}</span>
+  <p><i>{{ typing_text }}</i></p>
+  <input name="message" [(ngModel)]="message" (blur)="onBlur($event)" (keypress)="onKeyPress($event)"/>
+  <button (click)="sendMessage()">Send</button>
+</div>
